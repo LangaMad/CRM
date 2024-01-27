@@ -1,10 +1,9 @@
 from rest_framework import serializers
-from .models import Apartment
+from .models import Client
 
 
-class ApartmentSerializer(serializers.ModelSerializer):
+class ClientSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Apartment
+        model = Client
         fields = '__all__'
         read_only_fields = ('id',)
-

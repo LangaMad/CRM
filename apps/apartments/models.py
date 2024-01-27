@@ -7,6 +7,8 @@ from ..accounts.models import Manager
 class Building(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название застройщика или объекта')
 
+    def __str__(self):
+        return self.name    
 
 class Apartment(models.Model):
     STATUS_CHOICES = [

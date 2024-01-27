@@ -9,7 +9,6 @@ class ApartmentViewSet(ModelViewSet):
     serializer_class = ApartmentSerializer
     def perform_create(self, serializer):
         instance = serializer.save()
-
         if instance.manager:
             instance.manager.number_of_deals += 1
             instance.manager.save()
