@@ -1,6 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.crypto import get_random_string
 
 
 class UserManager(BaseUserManager):
@@ -40,7 +41,13 @@ class Manager(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    objects = UserManager
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.password = get_random_string(length=8)
+        super().save(*args, **kwargs)
+
+
+    objects = UserManager()
 
     def __str__(self):
         return self.full_name

@@ -7,7 +7,7 @@ from .models import *
 # Create your views here.
 
 class ManagerViewSet(ModelViewSet):
-    queryset = Manager.objects.all().order_by('-created_at')
+    queryset = Manager.objects.all()
     serializer_class = ManagerSerializer
 
 
