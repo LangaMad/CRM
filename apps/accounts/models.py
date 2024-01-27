@@ -34,6 +34,7 @@ class Manager(AbstractUser):
     full_name = models.CharField(max_length=255, verbose_name='ФИО')
     phone_number = models.CharField(max_length=15, verbose_name='Номер телефона')
     email = models.EmailField(verbose_name='Эл.почта', unique=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата регистрации')
     number_of_deals = models.PositiveIntegerField(default=0, editable=False)
 
     USERNAME_FIELD = 'email'
