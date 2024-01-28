@@ -1,18 +1,35 @@
-version: '3'
+version: '3.10'
 
 services:
-  web:
-    build: .
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/app
-
-
-
   db:
     image: postgres:14.0-alpine
+    container_name: backend_db_1
+    environment:
+      POSTGRES_DB: news
+      POSTGRES_USER: news_u
+      POSTGRES_PASSWORD: qwerty123
+    ports:
+      - "5432:5432"
     volumes:
       - ./postgres:/var/lib/postgres/data
+
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=db
+      - POSTGRES_NAME=news
+      - POSTGRES_USER=news_u
+      - POSTGRES_PASSWORD=qwerty123
+    depends_on:
+      - db
+
+
+
 
 

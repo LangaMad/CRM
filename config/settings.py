@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY','django-insecure-z4e06qo8w_eruo&3x$=johdxtvib02%%*t+lh2(j=dt_3k3rxx')
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = os.environ.get('DJANGO_DEBUG', True)
+DEBUG = os.environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = []
 
@@ -84,15 +84,17 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "news",
-        'USER': "news_u",
-        "PASSWORD": "qwerty123",
-        "HOST": "127.0.0.1",
-        "PORT": "5432"
-    }
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    #     {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': os.environ.get('DATABASE_NAME',"news"),  #"news",
+    #     'USER': os.environ.get('DATABASE_USER',"news_u"), #"news_u",
+    #     "PASSWORD": os.environ.get('DATABASE_PASSWORD',"qwerty123"),#"qwerty123",
+    #     "HOST": os.environ.get('DATABASE_HOST','db'), #"db",
+    #     "PORT": os.environ.get('DATABASE_PORT','5432')
+    # }
 }
+
 
 
 # Password validation
